@@ -4,7 +4,7 @@ from octofit_tracker.models import Activity, LeaderboardEntry, Team, User, Worko
 
 
 class Command(BaseCommand):
-    help = 'Popular o banco de dados octofit_db com dados de teste'
+    help = 'Populate the octofit_db database with test data'
 
     def handle(self, *args, **options):
         User.objects.all().delete()
@@ -62,5 +62,5 @@ class Command(BaseCommand):
         Workout.objects.bulk_create(workouts)
 
         self.stdout.write(
-            self.style.SUCCESS('Dados de teste populados com sucesso no banco octofit_db.')
+            self.style.SUCCESS('Populate the octofit_db database with test data complete.')
         )

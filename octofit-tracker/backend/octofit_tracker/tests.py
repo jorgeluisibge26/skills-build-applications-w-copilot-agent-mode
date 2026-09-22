@@ -30,8 +30,10 @@ class OctofitTrackerTests(TestCase):
 
         response = self.client.get('/api/users/')
         self.assertEqual(response.status_code, 200)
-        self.assertGreaterEqual(len(response.json().get('results', response.json())), 1)
-        self.assertTrue(User.objects.filter(pk=user.pk).exists())
+        payload = response.json()
+        items = payload if isinstance(payload, list) else payload.get('results', [])
+        self.assertGreaterEqual(len(items), 1)
+        self.assertEqual(User.objects.count(), 1)
 
     def test_team_creation_and_listing(self):
         Team.objects.create(
